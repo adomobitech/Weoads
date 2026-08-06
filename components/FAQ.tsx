@@ -1,9 +1,27 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const faqs = [
     { q: "What is WeoAds?", a: "WeoAds is a premium performance marketing network connecting advertisers with high-quality global traffic and publishers with top-tier monetization solutions." },
@@ -15,10 +33,14 @@ export default function FAQ() {
   ];
 
   return (
-    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12">
+    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12" ref={sectionRef}>
       <div className="max-w-[1000px] mx-auto">
         
-        <div className="text-center mb-12">
+        <div
+          className={`text-center mb-12 transition-all duration-700 ease-out ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3">FAQ</p>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900">Got Questions? We've Got Answers.</h2>
         </div>
@@ -26,13 +48,16 @@ export default function FAQ() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           {faqs.map((faq, idx) => (
             <div 
-              key={idx} 
-              className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer ${openIndex === idx ? 'border-indigo-200 shadow-md' : 'border-gray-100 hover:border-gray-200 shadow-sm'}`}
+              key={idx}
+              style={{ transitionDelay: visible ? `${idx * 70}ms` : '0ms' }}
+              className={`bg-white rounded-2xl border transition-all duration-500 ease-out overflow-hidden cursor-pointer hover:-translate-y-0.5 ${
+                openIndex === idx ? 'border-indigo-200 shadow-md' : 'border-gray-100 hover:border-gray-200 shadow-sm'
+              } ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
             >
               <div className="p-5 flex justify-between items-center">
                 <h4 className="font-bold text-gray-800 text-sm">{faq.q}</h4>
-                <span className={`text-xl font-light transition-transform duration-300 ${openIndex === idx ? 'rotate-45 text-indigo-600' : 'text-gray-400'}`}>+</span>
+                <span className={`text-xl font-light transition-transform duration-300 ${openIndex === idx ? 'rotate-45 text-indigo-600 scale-110' : 'text-gray-400'}`}>+</span>
               </div>
               
               <div className={`px-5 transition-all duration-300 ease-in-out ${openIndex === idx ? 'max-h-40 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>

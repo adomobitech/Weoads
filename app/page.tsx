@@ -1,6 +1,5 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import TrustLogos from '../components/TrustLogos';
 import FeaturesGrid from '../components/FeaturesGrid';
 import AdFormats from '../components/AdFormats';
 import FAQ from '../components/FAQ';
@@ -11,7 +10,6 @@ export default function Home() {
     <main className="min-h-screen bg-[#FAFBFF] font-sans overflow-x-hidden text-[#0B0F19]">
       <Navbar />
       <Hero />
-      <TrustLogos />
       <FeaturesGrid />
       <AdFormats />
       <FAQ />

@@ -1,4 +1,27 @@
+"use client";
+
+import { useEffect, useRef, useState } from 'react';
+
 export default function FeaturesGrid() {
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   const features = [
     {
       icon: "📣", iconBg: "bg-purple-50", iconText: "text-purple-500",
@@ -33,11 +56,25 @@ export default function FeaturesGrid() {
   ];
 
   return (
-    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12">
+    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12" ref={sectionRef}>
+      <style>{`
+        @keyframes iconFloat {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-4px) scale(1.05); }
+        }
+        .feat-icon-anim { animation: iconFloat 3.4s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .feat-icon-anim { animation: none !important; }
+        }
+      `}</style>
       <div className="max-w-[1400px] mx-auto">
-        
+
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div
+          className={`text-center mb-16 transition-all duration-700 ease-out ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3">What We Offer</p>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">Powerful Solutions To Scale Your Business</h2>
           <p className="text-gray-500 font-medium max-w-2xl mx-auto">
@@ -48,8 +85,14 @@ export default function FeaturesGrid() {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-start gap-5">
-              <div className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center text-2xl ${feature.iconBg} ${feature.iconText}`}>
+            <div
+              key={idx}
+              style={{ transitionDelay: visible ? `${idx * 90}ms` : '0ms' }}
+              className={`group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500 ease-out flex items-start gap-5 ${
+                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+            >
+              <div className={`feat-icon-anim w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center text-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${feature.iconBg} ${feature.iconText}`}>
                 {feature.icon}
               </div>
               <div>

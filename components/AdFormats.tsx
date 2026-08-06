@@ -1,9 +1,27 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function AdFormats() {
   const [activeTab, setActiveTab] = useState('Pop-Under');
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const tabs = [
     { id: 'Pop-Under', icon: '🪟' },
@@ -51,9 +69,38 @@ export default function AdFormats() {
   const currentContent = tabContent[activeTab];
 
   return (
-    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12 border-t border-gray-100">
-      <div className="max-w-[1400px] mx-auto">
-        
+    <section className="w-full bg-[#FAFBFF] py-20 px-6 md:px-12 border-t border-gray-100" ref={sectionRef}>
+      <style>{`
+        @keyframes badgeFloat {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-6px) rotate(3deg); }
+        }
+        @keyframes dotPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(1.15); }
+        }
+        @keyframes shimmerSweep {
+          0% { transform: translateX(-120%); }
+          100% { transform: translateX(220%); }
+        }
+        @keyframes tabIconPulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.18); }
+        }
+        .adf-badge-anim { animation: badgeFloat 3.2s ease-in-out infinite; }
+        .adf-dot-live { animation: dotPulse 1.8s ease-in-out infinite; }
+        .adf-shimmer { animation: shimmerSweep 2.6s ease-in-out infinite; }
+        .adf-tab-icon-active { animation: tabIconPulse 1.6s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .adf-badge-anim, .adf-dot-live, .adf-shimmer, .adf-tab-icon-active { animation: none !important; }
+        }
+      `}</style>
+      <div
+        className={`max-w-[1400px] mx-auto transition-all duration-700 ease-out ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+
         {/* Header */}
         <div className="text-center mb-12">
           <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3">Ad Formats</p>
@@ -69,10 +116,10 @@ export default function AdFormats() {
               className={`flex items-center gap-3 px-6 py-3.5 rounded-[1rem] font-bold text-sm transition-all duration-300 border ${
                 activeTab === tab.id 
                   ? 'bg-white text-indigo-600 border-indigo-100 shadow-md scale-105 ring-1 ring-indigo-50' 
-                  : 'bg-white/50 text-gray-500 border-gray-100 hover:bg-white hover:border-gray-200 hover:shadow-sm'
+                  : 'bg-white/50 text-gray-500 border-gray-100 hover:bg-white hover:border-gray-200 hover:shadow-sm hover:-translate-y-0.5'
               }`}
             >
-              <span className={activeTab === tab.id ? 'opacity-100' : 'opacity-60 grayscale'}>{tab.icon}</span>
+              <span className={`inline-block ${activeTab === tab.id ? 'opacity-100 adf-tab-icon-active' : 'opacity-60 grayscale'}`}>{tab.icon}</span>
               {tab.id}
             </button>
           ))}
@@ -85,7 +132,7 @@ export default function AdFormats() {
             
             {/* Feature 1 */}
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start gap-4">
-              <div className="w-12 h-12 shrink-0 bg-[#F5F3FF] text-[#7C3AED] rounded-full flex items-center justify-center text-xl shadow-inner border border-purple-50">
+              <div className="w-12 h-12 shrink-0 bg-[#F5F3FF] text-[#7C3AED] rounded-full flex items-center justify-center text-xl shadow-inner border border-purple-50 transition-transform duration-300 hover:scale-110 hover:rotate-6">
                 ⏱️
               </div>
               <div>
@@ -96,7 +143,7 @@ export default function AdFormats() {
 
             {/* Feature 2 */}
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start gap-4">
-              <div className="w-12 h-12 shrink-0 bg-[#EFF6FF] text-[#2563EB] rounded-full flex items-center justify-center text-xl shadow-inner border border-blue-50">
+              <div className="w-12 h-12 shrink-0 bg-[#EFF6FF] text-[#2563EB] rounded-full flex items-center justify-center text-xl shadow-inner border border-blue-50 transition-transform duration-300 hover:scale-110 hover:rotate-6">
                 👥
               </div>
               <div>
@@ -107,7 +154,7 @@ export default function AdFormats() {
 
             {/* Feature 3 */}
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start gap-4">
-              <div className="w-12 h-12 shrink-0 bg-[#F0FDF4] text-[#16A34A] rounded-full flex items-center justify-center text-xl shadow-inner border border-green-50">
+              <div className="w-12 h-12 shrink-0 bg-[#F0FDF4] text-[#16A34A] rounded-full flex items-center justify-center text-xl shadow-inner border border-green-50 transition-transform duration-300 hover:scale-110 hover:rotate-6">
                 🎯
               </div>
               <div>
@@ -121,8 +168,8 @@ export default function AdFormats() {
           <div className="w-full lg:w-1/4 flex justify-center lg:justify-end">
             <div className="w-full max-w-[220px] aspect-[4/3] bg-gradient-to-br from-indigo-50/80 to-purple-50/50 rounded-2xl border border-indigo-100/50 flex flex-col p-4 shadow-inner relative group overflow-hidden">
                
-               {/* Floating Chart Icon Badge (Like in screenshot) */}
-               <div className="absolute -right-2 -top-2 w-12 h-12 bg-white/90 backdrop-blur-sm shadow-lg rounded-xl flex items-center justify-center text-indigo-500 z-10 border border-slate-100 group-hover:-translate-y-1 transition-transform duration-300">
+               {/* Floating Chart Icon Badge (Like in screenshot) - now floats continuously */}
+               <div className="adf-badge-anim absolute -right-2 -top-2 w-12 h-12 bg-white/90 backdrop-blur-sm shadow-lg rounded-xl flex items-center justify-center text-indigo-500 z-10 border border-slate-100 group-hover:scale-110 transition-transform duration-300">
                  📈
                </div>
 
@@ -130,14 +177,16 @@ export default function AdFormats() {
                <div className="flex items-center gap-1.5 mb-3 border-b border-indigo-100/50 pb-2">
                  <div className="w-2 h-2 rounded-full bg-red-400"></div>
                  <div className="w-2 h-2 rounded-full bg-amber-400"></div>
-                 <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+                 <div className="w-2 h-2 rounded-full bg-emerald-400 adf-dot-live"></div>
                </div>
 
                <div className="flex-1 flex flex-col gap-2 group-hover:scale-[1.02] transition-transform duration-500">
                  <div className="w-3/4 h-3 bg-indigo-200/50 rounded-full"></div>
                  <div className="w-full h-12 bg-white/60 border border-indigo-100/50 rounded-lg mt-1 relative overflow-hidden flex items-center justify-center">
+                   {/* Shimmer sweep */}
+                   <div className="adf-shimmer absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none"></div>
                    {/* Dynamic element inside wireframe */}
-                   <span className="text-indigo-400/80 font-bold text-xs uppercase tracking-wider">{activeTab} Ad</span>
+                   <span className="relative text-indigo-400/80 font-bold text-xs uppercase tracking-wider">{activeTab} Ad</span>
                  </div>
                  <div className="flex gap-2 mt-auto">
                    <div className="w-full h-2 bg-purple-200/50 rounded-full"></div>

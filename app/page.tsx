@@ -1,9 +1,18 @@
+import dynamic from 'next/dynamic';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import FeaturesGrid from '../components/FeaturesGrid';
-import AdFormats from '../components/AdFormats';
-import FAQ from '../components/FAQ';
-import Footer from '../components/Footer';
+
+// Below-the-fold components ko lazy load kar rahe hain taaki initial load pe load na padé
+const AdFormats = dynamic(() => import('../components/AdFormats'), {
+  ssr: true,
+});
+const FAQ = dynamic(() => import('../components/FAQ'), {
+  ssr: true,
+});
+const Footer = dynamic(() => import('../components/Footer'), {
+  ssr: true,
+});
 
 export default function Home() {
   return (

@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const pathname = usePathname();
 
   // Mega Menu Data
   const digitalMarketingServices = [
@@ -78,19 +80,31 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* DESKTOP LINKS */}
+        {/* DESKTOP LINKS (Dynamic Active Underline) */}
         <ul className="hidden lg:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-gray-600">
-          <li className="text-indigo-600 border-b-2 border-indigo-600 pb-1 cursor-pointer"><Link href="/">Home</Link></li>
-          <li className="relative pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Advertisers</li>
-          <li className="relative pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Publishers</li>
+          
+          {/* Home */}
+          <li className={`pb-1 cursor-pointer flex items-center transition-colors duration-300 ${pathname === '/' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+            <Link href="/">Home</Link>
+          </li>
+
+          {/* Advertisers */}
+          <li className={`border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600`}>
+            Advertisers
+          </li>
+
+          {/* Publishers */}
+          <li className={`border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600`}>
+            Publishers
+          </li>
           
           {/* SERVICES DROPDOWN (DESKTOP MEGA MENU) */}
           <li 
-            className="relative pb-1 cursor-pointer group py-2"
+            className="relative border-b-2 border-transparent pb-1 cursor-pointer group flex items-center"
             onMouseEnter={() => setIsServicesOpen(true)}
             onMouseLeave={() => setIsServicesOpen(false)}
           >
-            <span className="flex items-center gap-1 transition-colors duration-300 group-hover:text-indigo-600">
+            <span className="flex items-center gap-1 transition-colors duration-300 group-hover:text-indigo-600 py-1">
               Services ▾
             </span>
 
@@ -106,8 +120,8 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {digitalMarketingServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 group/item cursor-pointer p-2 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
-                      <div className="w-9 h-9 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-700 shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white group-hover/item:border-indigo-600 transition-all">
+                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white group-hover/item:border-indigo-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
                       <div>
@@ -126,8 +140,8 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {promotionServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 group/item cursor-pointer p-2 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
-                      <div className="w-9 h-9 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-700 shrink-0 group-hover/item:bg-purple-600 group-hover/item:text-white group-hover/item:border-purple-600 transition-all">
+                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-purple-600 group-hover/item:text-white group-hover/item:border-purple-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
                       <div>
@@ -146,8 +160,8 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {solutionServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 group/item cursor-pointer p-2 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
-                      <div className="w-9 h-9 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-700 shrink-0 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all">
+                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
                       <div>
@@ -176,9 +190,11 @@ export default function Navbar() {
             </div>
           </li>
 
-          <li className="relative pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Resources ▾</li>
-          <li className="relative pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">Company ▾</li>
-          <li className="relative pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-full">
+          <li className="border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600">Resources ▾</li>
+          <li className="border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600">Company ▾</li>
+          
+          {/* Contact Us */}
+          <li className={`pb-1 cursor-pointer flex items-center transition-colors duration-300 ${pathname === '/contact' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
             <Link href="/contact">Contact Us</Link>
           </li>
         </ul>
@@ -214,7 +230,7 @@ export default function Navbar() {
       {/* MOBILE DROPDOWN MENU */}
       <div className={`lg:hidden absolute w-full bg-white/95 backdrop-blur-xl shadow-2xl border-b border-gray-100 transition-all duration-300 ease-in-out origin-top ${isMobileMenuOpen ? 'max-h-[800px] overflow-y-auto opacity-100 py-6 scale-y-100' : 'max-h-0 opacity-0 overflow-hidden py-0 scale-y-0'}`}>
         <ul className="flex flex-col items-center gap-4 text-sm font-semibold text-gray-600 pb-2 px-6">
-          <li className="text-indigo-600 cursor-pointer text-base" onClick={() => setIsMobileMenuOpen(false)}>
+          <li className={`cursor-pointer text-base ${pathname === '/' ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             <Link href="/">Home</Link>
           </li>
           <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Advertisers</li>
@@ -276,7 +292,7 @@ export default function Navbar() {
 
           <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Resources</li>
           <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Company</li>
-          <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base" onClick={() => setIsMobileMenuOpen(false)}>
+          <li className={`cursor-pointer text-base ${pathname === '/contact' ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             <Link href="/contact">Contact Us</Link>
           </li>
           

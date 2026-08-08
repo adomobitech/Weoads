@@ -146,7 +146,7 @@ export default function Footer() {
 
         {/* Copyright Bar */}
         <div className="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold text-gray-400">
-          <p>© 2026 WeoAds. All rights reserved.</p>
+          <p>© Weeo Media LLC.All rights reserved.</p>
           <div className="flex items-center gap-2 cursor-pointer hover:text-gray-600 transition-colors">
             <span>English ▾</span>
           </div>

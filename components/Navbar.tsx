@@ -11,7 +11,10 @@ export default function Navbar() {
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const pathname = usePathname();
 
-  // Mega Menu Data
+  // Helper to generate slug from title
+  const createSlug = (title: string) => title.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9 ]/g, '').trim().replace(/\s+/g, '-');
+
+  // Mega Menu Data with slugs
   const digitalMarketingServices = [
     { title: "Search Engine Optimization", desc: "Rank higher and boost organic traffic.", icon: "🔍" },
     { title: "Search Engine Marketing", desc: "Targeted PPC campaigns for instant traffic.", icon: "🎯" },
@@ -19,7 +22,7 @@ export default function Navbar() {
     { title: "Web Development", desc: "Custom, fast, and highly responsive web...", icon: "</>" },
     { title: "Content Marketing", desc: "Strategic content that educates and converts.", icon: "📄" },
     { title: "Affiliate Marketing", desc: "Expand your revenue channels with top...", icon: "👥" },
-  ];
+  ].map(s => ({ ...s, slug: createSlug(s.title) }));
 
   const promotionServices = [
     { title: "Mobile Marketing", desc: "Reach consumers directly on their mobile...", icon: "📱" },
@@ -28,7 +31,7 @@ export default function Navbar() {
     { title: "Email Marketing", desc: "Automated, personalized lifecycle flows.", icon: "✉️" },
     { title: "CRM Solutions", desc: "Optimize data to strengthen relationships.", icon: "🗄️" },
     { title: "CTV Ads Agency", desc: "Advertise premium spots on streaming TV...", icon: "📺" },
-  ];
+  ].map(s => ({ ...s, slug: createSlug(s.title) }));
 
   const solutionServices = [
     { title: "Online Reputation Management", desc: "Monitor, protect, and enhance your public...", icon: "🛡️" },
@@ -37,7 +40,11 @@ export default function Navbar() {
     { title: "Customer Retention", desc: "Boost customer lifetime value and product...", icon: "❤️" },
     { title: "Digital Transformation", desc: "Integrate modern processes and legacy tec...", icon: "💻" },
     { title: "Market Research & Insights", desc: "Gain deep analysis to make informed...", icon: "📊" },
-  ];
+  ].map(s => ({ ...s, slug: createSlug(s.title) }));
+
+  // Helper for active link detection
+  const isActive = (path: string) => pathname === path;
+  const isServiceActive = pathname.startsWith('/services');
 
   return (
     <nav className="w-full relative z-50 bg-[#FAFBFF] anim-nav-in">
@@ -80,31 +87,31 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* DESKTOP LINKS (Dynamic Active Underline) */}
+        {/* DESKTOP LINKS */}
         <ul className="hidden lg:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-gray-600">
           
           {/* Home */}
-          <li className={`pb-1 cursor-pointer flex items-center transition-colors duration-300 ${pathname === '/' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
             <Link href="/">Home</Link>
           </li>
-
+          
           {/* Advertisers */}
-          <li className={`border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600`}>
-            Advertisers
-          </li>
-
-          {/* Publishers */}
-          <li className={`border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600`}>
-            Publishers
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/advertisers') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+            <Link href="/advertisers">Advertisers</Link>
           </li>
           
-          {/* SERVICES DROPDOWN (DESKTOP MEGA MENU) */}
+          {/* Publishers */}
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/publishers') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+            <Link href="/publishers">Publishers</Link>
+          </li>
+          
+          {/* SERVICES DROPDOWN (MEGA MENU) */}
           <li 
-            className="relative border-b-2 border-transparent pb-1 cursor-pointer group flex items-center"
+            className={`relative pb-1 cursor-pointer group transition-colors duration-300 ${isServiceActive ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}
             onMouseEnter={() => setIsServicesOpen(true)}
             onMouseLeave={() => setIsServicesOpen(false)}
           >
-            <span className="flex items-center gap-1 transition-colors duration-300 group-hover:text-indigo-600 py-1">
+            <span className="flex items-center gap-1 py-1">
               Services ▾
             </span>
 
@@ -120,7 +127,7 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {digitalMarketingServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                    <Link href={`/services/${item.slug}`} key={idx} onClick={() => setIsServicesOpen(false)} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
                       <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white group-hover/item:border-indigo-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
@@ -128,7 +135,7 @@ export default function Navbar() {
                         <h5 className="text-xs font-bold text-gray-900 group-hover/item:text-indigo-600 transition-colors">{item.title}</h5>
                         <p className="text-[10px] text-gray-400 font-medium leading-relaxed">{item.desc}</p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -140,7 +147,7 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {promotionServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                    <Link href={`/services/${item.slug}`} key={idx} onClick={() => setIsServicesOpen(false)} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
                       <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-purple-600 group-hover/item:text-white group-hover/item:border-purple-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
@@ -148,7 +155,7 @@ export default function Navbar() {
                         <h5 className="text-xs font-bold text-gray-900 group-hover/item:text-purple-600 transition-colors">{item.title}</h5>
                         <p className="text-[10px] text-gray-400 font-medium leading-relaxed">{item.desc}</p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -160,7 +167,7 @@ export default function Navbar() {
                 </h4>
                 <div className="flex flex-col gap-4">
                   {solutionServices.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
+                    <Link href={`/services/${item.slug}`} key={idx} onClick={() => setIsServicesOpen(false)} className="flex items-start gap-3.5 group/item cursor-pointer p-2.5 rounded-xl transition-all duration-200 hover:bg-white hover:shadow-sm">
                       <div className="w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-xl text-gray-700 shrink-0 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all shadow-sm">
                         {item.icon}
                       </div>
@@ -168,12 +175,12 @@ export default function Navbar() {
                         <h5 className="text-xs font-bold text-gray-900 group-hover/item:text-blue-600 transition-colors">{item.title}</h5>
                         <p className="text-[10px] text-gray-400 font-medium leading-relaxed">{item.desc}</p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Unique Bottom Banner inside Dropdown */}
+              {/* Bottom Banner inside Dropdown */}
               <div className="col-span-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-4 px-6 flex items-center justify-between text-white shadow-md">
                 <div className="flex items-center gap-3">
                   <span className="text-xl">💡</span>
@@ -182,7 +189,7 @@ export default function Navbar() {
                     <p className="text-[10px] text-indigo-100 font-medium">Talk to our performance marketing experts today.</p>
                   </div>
                 </div>
-                <Link href="/contact" className="bg-white text-indigo-600 px-5 py-2 rounded-xl text-xs font-bold hover:bg-indigo-50 transition-colors shadow-sm">
+                <Link href="/contact" onClick={() => setIsServicesOpen(false)} className="bg-white text-indigo-600 px-5 py-2 rounded-xl text-xs font-bold hover:bg-indigo-50 transition-colors shadow-sm">
                   Get Free Audit &rarr;
                 </Link>
               </div>
@@ -190,23 +197,27 @@ export default function Navbar() {
             </div>
           </li>
 
-          <li className="border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600">Resources ▾</li>
-          <li className="border-b-2 border-transparent pb-1 cursor-pointer transition-colors duration-300 hover:text-indigo-600">Company ▾</li>
+          {/* Resources */}
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/resources') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+            <Link href="/resources">Resources ▾</Link>
+          </li>
+          
+          {/* Company */}
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/company') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+            <Link href="/company">Company ▾</Link>
+          </li>
           
           {/* Contact Us */}
-          <li className={`pb-1 cursor-pointer flex items-center transition-colors duration-300 ${pathname === '/contact' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
+          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/contact') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
             <Link href="/contact">Contact Us</Link>
           </li>
         </ul>
 
         {/* DESKTOP ACTIONS */}
-        <div className="hidden lg:flex items-center gap-3 lg:border-l lg:border-gray-200 lg:pl-6 z-10">
-          <button className="text-sm font-semibold text-gray-800 transition-all duration-300 hover:text-indigo-600 hover:-translate-y-0.5 whitespace-nowrap">
-            Log In
-          </button>
-          <button className="nav-cta-anim bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 hover:scale-105 active:scale-95 whitespace-nowrap">
+        <div className="hidden lg:flex items-center z-10">
+          <Link href="/contact" className="bg-indigo-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all">
             Get Started →
-          </button>
+          </Link>
         </div>
 
         {/* MOBILE HAMBURGER BUTTON */}
@@ -230,16 +241,20 @@ export default function Navbar() {
       {/* MOBILE DROPDOWN MENU */}
       <div className={`lg:hidden absolute w-full bg-white/95 backdrop-blur-xl shadow-2xl border-b border-gray-100 transition-all duration-300 ease-in-out origin-top ${isMobileMenuOpen ? 'max-h-[800px] overflow-y-auto opacity-100 py-6 scale-y-100' : 'max-h-0 opacity-0 overflow-hidden py-0 scale-y-0'}`}>
         <ul className="flex flex-col items-center gap-4 text-sm font-semibold text-gray-600 pb-2 px-6">
-          <li className={`cursor-pointer text-base ${pathname === '/' ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+          <li className={`cursor-pointer text-base ${isActive('/') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             <Link href="/">Home</Link>
           </li>
-          <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Advertisers</li>
-          <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Publishers</li>
+          <li className={`cursor-pointer text-base hover:text-indigo-600 transition-colors ${isActive('/advertisers') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/advertisers">Advertisers</Link>
+          </li>
+          <li className={`cursor-pointer text-base hover:text-indigo-600 transition-colors ${isActive('/publishers') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/publishers">Publishers</Link>
+          </li>
           
           {/* MOBILE SERVICES ACCORDION */}
           <li className="w-full flex flex-col items-center">
             <div 
-              className="flex items-center justify-center gap-1.5 hover:text-indigo-600 cursor-pointer transition-colors text-base py-1"
+              className={`flex items-center justify-center gap-1.5 hover:text-indigo-600 cursor-pointer transition-colors text-base py-1 ${isServiceActive ? 'text-indigo-600 font-bold' : ''}`}
               onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
             >
               <span>Services</span>
@@ -255,9 +270,9 @@ export default function Navbar() {
                   <p className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider mb-2">Digital Marketing</p>
                   <div className="flex flex-col gap-2.5 pl-2">
                     {digitalMarketingServices.map((item, idx) => (
-                      <span key={idx} className="text-xs text-gray-600 font-medium hover:text-indigo-600 cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link key={idx} href={`/services/${item.slug}`} className={`text-xs font-medium hover:text-indigo-600 transition-colors ${isActive(`/services/${item.slug}`) ? 'text-indigo-600' : 'text-gray-600'}`} onClick={() => { setIsMobileMenuOpen(false); setIsMobileServicesOpen(false); }}>
                         {item.title}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -267,9 +282,9 @@ export default function Navbar() {
                   <p className="text-[10px] font-extrabold text-purple-600 uppercase tracking-wider mb-2">Promotions</p>
                   <div className="flex flex-col gap-2.5 pl-2">
                     {promotionServices.map((item, idx) => (
-                      <span key={idx} className="text-xs text-gray-600 font-medium hover:text-purple-600 cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link key={idx} href={`/services/${item.slug}`} className={`text-xs font-medium hover:text-purple-600 transition-colors ${isActive(`/services/${item.slug}`) ? 'text-purple-600' : 'text-gray-600'}`} onClick={() => { setIsMobileMenuOpen(false); setIsMobileServicesOpen(false); }}>
                         {item.title}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -279,9 +294,9 @@ export default function Navbar() {
                   <p className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider mb-2">Solutions</p>
                   <div className="flex flex-col gap-2.5 pl-2">
                     {solutionServices.map((item, idx) => (
-                      <span key={idx} className="text-xs text-gray-600 font-medium hover:text-blue-600 cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link key={idx} href={`/services/${item.slug}`} className={`text-xs font-medium hover:text-blue-600 transition-colors ${isActive(`/services/${item.slug}`) ? 'text-blue-600' : 'text-gray-600'}`} onClick={() => { setIsMobileMenuOpen(false); setIsMobileServicesOpen(false); }}>
                         {item.title}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -290,19 +305,20 @@ export default function Navbar() {
             </div>
           </li>
 
-          <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Resources</li>
-          <li className="hover:text-indigo-600 cursor-pointer transition-colors text-base">Company</li>
-          <li className={`cursor-pointer text-base ${pathname === '/contact' ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+          <li className={`cursor-pointer text-base hover:text-indigo-600 transition-colors ${isActive('/resources') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/resources">Resources</Link>
+          </li>
+          <li className={`cursor-pointer text-base hover:text-indigo-600 transition-colors ${isActive('/company') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/company">Company</Link>
+          </li>
+          <li className={`cursor-pointer text-base hover:text-indigo-600 transition-colors ${isActive('/contact') ? 'text-indigo-600 font-bold' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             <Link href="/contact">Contact Us</Link>
           </li>
           
           <li className="w-full border-t border-gray-100 pt-6 mt-2 flex flex-col items-center gap-4 px-2">
-            <button className="text-gray-800 font-bold hover:text-indigo-600 transition-colors w-full py-2">
-              Log In
-            </button>
-            <button className="bg-indigo-600 text-white px-6 py-4 rounded-xl font-bold w-full shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2">
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="bg-indigo-600 text-white px-6 py-4 rounded-xl font-bold w-full shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2">
               Get Started <span>→</span>
-            </button>
+            </Link>
           </li>
         </ul>
       </div>

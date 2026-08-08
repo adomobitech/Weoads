@@ -275,7 +275,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Phone Number <span className="text-red-500">*</span></label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 ..." required className="w-full bg-[#FAFBFF] border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium" />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+1 ..." required className="w-full bg-[#FAFBFF] border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium" />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Country</label>

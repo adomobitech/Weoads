@@ -100,11 +100,7 @@ export default function Hero() {
             
             {/* LEFT SIDE: Typography & CTA */}
             <ScrollReveal animation="fade-right" className="lg:col-span-5 flex flex-col items-start z-20">
-              <div className="flex items-center gap-2 bg-white border border-gray-100 px-5 py-2.5 rounded-full mb-8 shadow-sm">
-                <span className="text-sm">🚀</span>
-                <span className="text-[10px] md:text-[11px] font-bold text-gray-600 tracking-widest uppercase">Performance Driven. Result Focused.</span>
-              </div>
-
+            
               <h1 className="text-5xl sm:text-7xl lg:text-[5rem] font-black text-[#111827] leading-[1.05] tracking-tight mb-6">
                 We Grow <br />
                 <span className="text-[#8B5CF6]">Brands.</span><br />

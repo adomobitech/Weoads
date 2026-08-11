@@ -19,8 +19,8 @@ export default function ContactPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   
-  // State for toggling map
-  const [activeMap, setActiveMap] = useState<'india' | 'us'>('india');
+  // Default map set to US
+  const [activeMap, setActiveMap] = useState<'us' | 'india'>('us');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -85,7 +85,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-[#FAFBFF] font-sans text-[#0B0F19] overflow-x-hidden flex flex-col relative">
       <Navbar />
 
-      {/* Hide Scrollbar & Wiggle Animations */}
+      {/* Hide Scrollbar for Modals */}
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -99,9 +99,8 @@ export default function ContactPage() {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-50/50 rounded-full blur-[120px] pointer-events-none -z-10"></div>
       <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-purple-50/50 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
-      {/* ================= DUAL FLOATING CONTACT BUTTONS (SPECIFIC FOR /CONTACT) ================= */}
+      {/* ================= FLOATING CONTACT BUTTONS (WHATSAPP & CALL) ================= */}
       <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[99] flex flex-col gap-3 items-end">
-        
         {/* WhatsApp Button */}
         <a 
           href="https://wa.me/916366666760" 
@@ -122,7 +121,7 @@ export default function ContactPage() {
 
         {/* Call Button */}
         <a 
-          href="tel:+91-6366666760" 
+          href="tel:+916366666760" 
           className="group relative flex items-center bg-[#4F46E5] text-white rounded-full p-3.5 md:p-4 shadow-[0_10px_25px_rgba(79,70,229,0.4)] hover:shadow-[0_15px_35px_rgba(79,70,229,0.6)] transition-all duration-300 hover:-translate-y-1 hover:pr-6 md:hover:pr-8"
           aria-label="Call Us"
         >
@@ -136,7 +135,6 @@ export default function ContactPage() {
             +91-6366666760
           </span>
         </a>
-
       </div>
 
       {/* ================= PREMIUM SUCCESS POPUP ================= */}
@@ -232,14 +230,10 @@ export default function ContactPage() {
         
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 lg:gap-12 items-start">
           
-          {/* ================= LEFT COLUMN ================= */}
+          {/* ================= LEFT COLUMN: UNITED STATES & INDIA OFFICE DETAILS IN ONE SINGLE UNIFIED BOX ================= */}
           <div className="xl:col-span-6 flex flex-col gap-12 animate-[fadeInUp_0.8s_ease-out]">
             
             <div>
-              <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-600 px-4 py-1.5 rounded-full mb-6">
-                <span className="text-sm">🚀</span>
-                <span className="text-[10px] font-bold tracking-widest uppercase">Let's Connect</span>
-              </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-[#111827] leading-[1.1] tracking-tight mb-6">
                 Let's Build Something <br />
@@ -277,51 +271,69 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div>
-              <h2 className="text-2xl font-black text-gray-900 mb-8 flex items-center gap-2">
-                Get In <span className="text-blue-600">Touch</span>
-                <div className="flex-1 h-px bg-gray-100 ml-4"></div>
-              </h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
+            {/* ================= ONE SINGLE UNIFIED BOX FOR BOTH US & INDIA ================= */}
+            <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-sm border border-gray-100">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                {/* Phones (Both US and India) */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm border border-indigo-100/50">📞</div>
-                  <div>
-                    <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Phone Numbers</p>
-                    <p className="text-sm font-bold text-gray-900 mb-0.5">🇮🇳 +91-6366666760</p>
-                    <p className="text-sm font-bold text-gray-900">🇺🇸 +1 (737) 305-6651</p>
+                {/* LEFT SIDE: UNITED STATES */}
+                <div className="flex flex-col gap-6">
+                  <h2 className="text-lg font-black text-gray-900 pb-3 border-b border-gray-100 flex items-center gap-2">
+                    United States 
+                  </h2>
+
+                  {/* US Phone */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 font-bold text-sm">📞</div>
+                    <div>
+                      <p className="text-[9px] font-bold text-indigo-600 uppercase tracking-widest mb-0.5">US Phone</p>
+                      <p className="text-xs font-bold text-gray-900">+1 (737) 305-6651</p>
+                    </div>
+                  </div>
+
+                  {/* US Address */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold text-sm">🏢</div>
+                    <div>
+                      <p className="text-[9px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">US Address</p>
+                      <p className="text-xs font-bold text-gray-900 leading-snug">5900 Balcones Dr STE 100</p>
+                      <p className="text-[10px] text-gray-500 font-medium">Austin, TX 78731 USA</p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 shadow-sm border border-purple-100/50">✉️</div>
-                  <div>
-                    <p className="text-[10px] font-bold text-purple-600 uppercase tracking-widest mb-1">Email Address</p>
-                    <p className="text-sm font-bold text-gray-900 mb-1">support@weoads.com</p>
-                    <p className="text-[10px] text-gray-500 font-medium">We reply within 24 hours</p>
-                  </div>
-                </div>
+                {/* RIGHT SIDE: INDIA */}
+                <div className="flex flex-col gap-6 border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-8">
+                  <h2 className="text-lg font-black text-gray-900 pb-3 border-b border-gray-100 flex items-center gap-2">
+                    India Office 
+                  </h2>
 
-                {/* India Address */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 shadow-sm border border-pink-100/50">📍</div>
-                  <div>
-                    <p className="text-[10px] font-bold text-pink-600 uppercase tracking-widest mb-1">India Office</p>
-                    <p className="text-sm font-bold text-gray-900 mb-1 leading-snug">5th Floor, DLF Two Horizon Centre</p>
-                    <p className="text-[10px] text-gray-500 font-medium">DLF Phase 5, Gurugram, 122002</p>
+                  {/* Email */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-bold text-sm">✉️</div>
+                    <div>
+                      <p className="text-[9px] font-bold text-purple-600 uppercase tracking-widest mb-0.5">Email</p>
+                      <p className="text-xs font-bold text-gray-900">support@weoads.com</p>
+                    </div>
                   </div>
-                </div>
 
-                {/* US Address */}
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-sm border border-blue-100/50">🏢</div>
-                  <div>
-                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">US Office</p>
-                    <p className="text-sm font-bold text-gray-900 mb-1 leading-snug">5900 Balcones Drive STE 100</p>
-                    <p className="text-[10px] text-gray-500 font-medium">Austin, TX 78731 USA</p>
+                  {/* India Phone */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 font-bold text-sm">📞</div>
+                    <div>
+                      <p className="text-[9px] font-bold text-indigo-600 uppercase tracking-widest mb-0.5">India Phone</p>
+                      <p className="text-xs font-bold text-gray-900">+91-6366666760</p>
+                    </div>
+                  </div>
+
+                  {/* India Address */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 font-bold text-sm">📍</div>
+                    <div>
+                      <p className="text-[9px] font-bold text-pink-600 uppercase tracking-widest mb-0.5">India Address</p>
+                      <p className="text-xs font-bold text-gray-900 leading-snug">5th Floor, DLF Two Horizon Ctr</p>
+                      <p className="text-[10px] text-gray-500 font-medium">DLF Phase 5, Gurugram, 122002</p>
+                    </div>
                   </div>
                 </div>
 
@@ -330,8 +342,9 @@ export default function ContactPage() {
 
           </div>
 
-          {/* ================= RIGHT COLUMN (FORM) ================= */}
-          <div className="xl:col-span-6 animate-[fadeInUp_1s_ease-out]">
+          {/* ================= RIGHT COLUMN: FORM ONLY ================= */}
+          <div className="xl:col-span-6 flex flex-col gap-12 animate-[fadeInUp_1s_ease-out]">
+            
             <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 relative">
               
               <form onSubmit={handleSubmit} className="flex flex-col gap-8">
@@ -393,29 +406,29 @@ export default function ContactPage() {
 
         </div>
 
-        {/* ================= MULTIPLE MAPS TOGGLE SECTION ================= */}
+        {/* ================= DUAL MAPS SECTION (DEFAULT SET TO US AS REQUESTED) ================= */}
         <div className="w-full mt-16 animate-[fadeInUp_1.2s_ease-out]">
           
-          {/* Custom Tabs */}
+          {/* Custom Tabs with US Default */}
           <div className="flex items-center justify-center gap-4 mb-8">
-            <button 
-              onClick={() => setActiveMap('india')}
-              className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 ${activeMap === 'india' ? 'bg-[#0B0F19] text-white shadow-lg scale-105' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
-            >
-              🇮🇳 India Office
-            </button>
             <button 
               onClick={() => setActiveMap('us')}
               className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 ${activeMap === 'us' ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
             >
-              🇺🇸 US Office
+               United States Office Map
+            </button>
+            <button 
+              onClick={() => setActiveMap('india')}
+              className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 ${activeMap === 'india' ? 'bg-[#0B0F19] text-white shadow-lg scale-105' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
+            >
+               India Office Map
             </button>
           </div>
 
           <div className="bg-white rounded-[2rem] h-[450px] relative overflow-hidden border border-gray-100 shadow-sm transition-all duration-500">
-            {activeMap === 'india' ? (
+            {activeMap === 'us' ? (
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.318898198642!2d77.0911762!3d28.4398188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18b4566f1fc9%3A0xc3f5fb4eb37a0eb5!2sTwo%20Horizon%20Center!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.080186981884!2d-97.7533845!3d30.3484218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb6d61081535%3A0x608e063ba806eb55!2s5900%20Balcones%20Dr%20STE%20100%2C%20Austin%2C%20TX%2078731%2C%20USA!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
@@ -426,7 +439,7 @@ export default function ContactPage() {
               ></iframe>
             ) : (
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.080186981884!2d-97.7533845!3d30.3484218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb6d61081535%3A0x608e063ba806eb55!2s5900%20Balcones%20Dr%20STE%20100%2C%20Austin%2C%20TX%2078731%2C%20USA!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.318898198642!2d77.0911762!3d28.4398188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18b4566f1fc9%3A0xc3f5fb4eb37a0eb5!2sTwo%20Horizon%20Center!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 

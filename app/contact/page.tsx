@@ -18,6 +18,9 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  
+  // State for toggling map
+  const [activeMap, setActiveMap] = useState<'india' | 'us'>('india');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -82,17 +85,61 @@ export default function ContactPage() {
     <main className="min-h-screen bg-[#FAFBFF] font-sans text-[#0B0F19] overflow-x-hidden flex flex-col relative">
       <Navbar />
 
-      {/* Hide Scrollbar for Modals */}
+      {/* Hide Scrollbar & Wiggle Animations */}
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes wiggle {
+          0%, 100% { transform: rotate(-3deg); }
+          50% { transform: rotate(3deg); }
+        }
       `}} />
 
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-50/50 rounded-full blur-[120px] pointer-events-none -z-10"></div>
       <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-purple-50/50 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
-      {/* ================= PREMIUM SUCCESS POPUP (UI FIXED) ================= */}
+      {/* ================= DUAL FLOATING CONTACT BUTTONS (SPECIFIC FOR /CONTACT) ================= */}
+      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[99] flex flex-col gap-3 items-end">
+        
+        {/* WhatsApp Button */}
+        <a 
+          href="https://wa.me/916366666760" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center bg-[#25D366] text-white rounded-full p-3.5 md:p-4 shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_35px_rgba(37,211,102,0.6)] transition-all duration-300 hover:-translate-y-1 hover:pr-6 md:hover:pr-8"
+          aria-label="WhatsApp Us"
+        >
+          <div className="relative z-10 flex items-center justify-center bg-white/20 rounded-full p-1.5 md:p-2">
+            <svg className="w-5 h-5 md:w-6 md:h-6 animate-[wiggle_1s_ease-in-out_infinite] group-hover:animate-none" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </div>
+          <span className="max-w-0 overflow-hidden opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-3 md:group-hover:ml-4 transition-all duration-500 ease-in-out whitespace-nowrap font-bold text-sm md:text-base tracking-wide text-white">
+            WhatsApp Us
+          </span>
+        </a>
+
+        {/* Call Button */}
+        <a 
+          href="tel:+91-6366666760" 
+          className="group relative flex items-center bg-[#4F46E5] text-white rounded-full p-3.5 md:p-4 shadow-[0_10px_25px_rgba(79,70,229,0.4)] hover:shadow-[0_15px_35px_rgba(79,70,229,0.6)] transition-all duration-300 hover:-translate-y-1 hover:pr-6 md:hover:pr-8"
+          aria-label="Call Us"
+        >
+          <div className="absolute inset-0 rounded-full border-2 border-[#4F46E5]/60 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] group-hover:animate-none"></div>
+          <div className="relative z-10 flex items-center justify-center bg-white/20 rounded-full p-1.5 md:p-2">
+            <svg className="w-5 h-5 md:w-6 md:h-6 animate-[wiggle_1s_ease-in-out_infinite] group-hover:animate-none text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <span className="max-w-0 overflow-hidden opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-3 md:group-hover:ml-4 transition-all duration-500 ease-in-out whitespace-nowrap font-bold text-sm md:text-base tracking-wide text-white">
+            +91-6366666760
+          </span>
+        </a>
+
+      </div>
+
+      {/* ================= PREMIUM SUCCESS POPUP ================= */}
       {showPopup && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 sm:p-6">
           <div className="bg-white rounded-[2rem] p-6 sm:p-10 max-w-2xl w-full text-center shadow-2xl animate-[scale-up_0.3s_ease-out] max-h-[90vh] overflow-y-auto hide-scrollbar">
@@ -130,7 +177,7 @@ export default function ContactPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm font-bold text-gray-600">
                 <div className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  +1 (737) 305-6651
+                  +91-6366666760
                 </div>
                 <div className="hidden sm:block w-px h-4 bg-gray-200"></div>
                 <div className="flex items-center gap-2">
@@ -236,15 +283,19 @@ export default function ContactPage() {
                 <div className="flex-1 h-px bg-gray-100 ml-4"></div>
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
+                
+                {/* Phones (Both US and India) */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 shadow-sm border border-indigo-100/50">📞</div>
                   <div>
-                    <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Phone Number</p>
-                    <p className="text-sm font-bold text-gray-900 mb-1">+1 (737) 305-6651</p>
+                    <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Phone Numbers</p>
+                    <p className="text-sm font-bold text-gray-900 mb-0.5">🇮🇳 +91-6366666760</p>
+                    <p className="text-sm font-bold text-gray-900">🇺🇸 +1 (737) 305-6651</p>
                   </div>
                 </div>
 
+                {/* Email */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 shadow-sm border border-purple-100/50">✉️</div>
                   <div>
@@ -254,14 +305,26 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* India Address */}
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center shrink-0 shadow-sm border border-pink-100/50">📍</div>
                   <div>
-                    <p className="text-[10px] font-bold text-pink-600 uppercase tracking-widest mb-1">Office Address</p>
+                    <p className="text-[10px] font-bold text-pink-600 uppercase tracking-widest mb-1">India Office</p>
+                    <p className="text-sm font-bold text-gray-900 mb-1 leading-snug">5th Floor, DLF Two Horizon Centre</p>
+                    <p className="text-[10px] text-gray-500 font-medium">DLF Phase 5, Gurugram, 122002</p>
+                  </div>
+                </div>
+
+                {/* US Address */}
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-sm border border-blue-100/50">🏢</div>
+                  <div>
+                    <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">US Office</p>
                     <p className="text-sm font-bold text-gray-900 mb-1 leading-snug">5900 Balcones Drive STE 100</p>
                     <p className="text-[10px] text-gray-500 font-medium">Austin, TX 78731 USA</p>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -287,7 +350,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Phone Number <span className="text-red-500">*</span></label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+1 ..." required className="w-full bg-[#FAFBFF] border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium" />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 ..." required className="w-full bg-[#FAFBFF] border border-gray-200 text-gray-900 text-sm rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium" />
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Country</label>
@@ -330,18 +393,50 @@ export default function ContactPage() {
 
         </div>
 
-        {/* ================= REAL GOOGLE MAPS IFRAME ================= */}
-        <div className="w-full mt-12 bg-white rounded-[2rem] h-[400px] relative overflow-hidden border border-gray-100 shadow-sm animate-[fadeInUp_1.2s_ease-out]">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.080186981884!2d-97.7533845!3d30.3484218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb6d61081535%3A0x608e063ba806eb55!2s5900%20Balcones%20Dr%20STE%20100%2C%20Austin%2C%20TX%2078731%2C%20USA!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={false} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0"
-          ></iframe>
+        {/* ================= MULTIPLE MAPS TOGGLE SECTION ================= */}
+        <div className="w-full mt-16 animate-[fadeInUp_1.2s_ease-out]">
+          
+          {/* Custom Tabs */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <button 
+              onClick={() => setActiveMap('india')}
+              className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 ${activeMap === 'india' ? 'bg-[#0B0F19] text-white shadow-lg scale-105' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
+            >
+              🇮🇳 India Office
+            </button>
+            <button 
+              onClick={() => setActiveMap('us')}
+              className={`px-8 py-3 rounded-full font-bold text-sm transition-all duration-300 ${activeMap === 'us' ? 'bg-blue-600 text-white shadow-lg scale-105' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
+            >
+              🇺🇸 US Office
+            </button>
+          </div>
+
+          <div className="bg-white rounded-[2rem] h-[450px] relative overflow-hidden border border-gray-100 shadow-sm transition-all duration-500">
+            {activeMap === 'india' ? (
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.318898198642!2d77.0911762!3d28.4398188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18b4566f1fc9%3A0xc3f5fb4eb37a0eb5!2sTwo%20Horizon%20Center!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 animate-[fadeIn_0.5s_ease-out]"
+              ></iframe>
+            ) : (
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.080186981884!2d-97.7533845!3d30.3484218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb6d61081535%3A0x608e063ba806eb55!2s5900%20Balcones%20Dr%20STE%20100%2C%20Austin%2C%20TX%2078731%2C%20USA!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 animate-[fadeIn_0.5s_ease-out]"
+              ></iframe>
+            )}
+          </div>
         </div>
 
       </div>

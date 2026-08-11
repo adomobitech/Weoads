@@ -1,9 +1,18 @@
 "use client";
+import { usePathname } from 'next/navigation';
 
 export default function FloatingCallButton() {
+  const pathname = usePathname();
+
+  // Agar user /contact page par hai, toh purane single button ko hide kardo 
+  // Kyunki humne page me hi custom dual-buttons daal diye hain!
+  if (pathname === '/contact') {
+    return null; 
+  }
+
   return (
     <a 
-      href="tel:+17373056651" 
+      href="tel:+91-6366666760" 
       className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[99] group flex items-center bg-[#4F46E5] text-white rounded-full p-3.5 md:p-4 shadow-[0_10px_25px_rgba(79,70,229,0.4)] hover:shadow-[0_15px_35px_rgba(79,70,229,0.6)] transition-all duration-300 hover:-translate-y-1 hover:pr-6 md:hover:pr-8"
       aria-label="Call Us"
     >
@@ -29,7 +38,7 @@ export default function FloatingCallButton() {
 
       {/* Expandable Phone Number */}
       <span className="max-w-0 overflow-hidden opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-3 md:group-hover:ml-4 transition-all duration-500 ease-in-out whitespace-nowrap font-bold text-sm md:text-base tracking-wide text-white">
-        +1 (737) 305-6651
+        +91-6366666760
       </span>
 
       <style dangerouslySetInnerHTML={{__html: `

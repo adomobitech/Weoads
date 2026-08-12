@@ -207,10 +207,6 @@ export default function Navbar() {
             <Link href="/company">Company ▾</Link>
           </li>
           
-          {/* Contact Us */}
-          <li className={`pb-1 cursor-pointer transition-colors duration-300 ${isActive('/contact') ? 'text-indigo-600 border-b-2 border-indigo-600' : 'border-b-2 border-transparent hover:text-indigo-600'}`}>
-            <Link href="/contact">Contact Us</Link>
-          </li>
         </ul>
 
         {/* DESKTOP ACTIONS */}

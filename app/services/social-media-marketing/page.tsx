@@ -32,67 +32,129 @@ const ScrollReveal = ({ children, className = "", delay = 0, animation = "fade-u
 
   return <div ref={ref} className={`${baseClass} ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 };
-
 // ==========================================
-// 2. UNIQUE UI: INTERACTIVE REEL MOCKUP
+// 2. UNIQUE UI: INSTAGRAM REEL REDIRECTING DIRECTLY TO YOUR INSTA PAGE
 // ==========================================
 const LiveReelMockup = () => {
-  const [likes, setLikes] = useState(18420);
-  const [comments, setComments] = useState(1240);
-  const [shares, setShares] = useState(890);
+  const [likes, setLikes] = useState(18542);
+  const [comments, setComments] = useState(1245);
+  const [shares, setShares] = useState(897);
+
+  // Target Instagram URL provided by you
+  const instaUrl = "https://www.instagram.com/weoads?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLikes(prev => prev + Math.floor(Math.random() * 12) + 2);
-      if (Math.random() > 0.5) setComments(prev => prev + 1);
-      if (Math.random() > 0.4) setShares(prev => prev + 1);
-    }, 1200);
+      setLikes(prev => prev + Math.floor(Math.random() * 3));
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
+  // Function to open your Instagram page in a new tab
+  const redirectToInsta = () => {
+    window.open(instaUrl, '_blank');
+  };
+
   return (
-    <div className="relative mx-auto w-full max-w-[340px] h-[520px] bg-black rounded-[3rem] p-4 border-[6px] border-gray-900 shadow-[0_25px_60px_-15px_rgba(236,72,153,0.3)] flex flex-col justify-between overflow-hidden group">
-      {/* Background Gradient Video Simulation */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-900 via-pink-600 to-amber-500 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+    <div className="relative mx-auto w-full max-w-[340px] h-[590px] bg-[#0A0D14] rounded-[2.5rem] p-3 border-[4px] border-gray-800/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] flex flex-col justify-between overflow-hidden group">
       
-      {/* Top Bar */}
-      <div className="relative z-10 flex justify-between items-center text-white text-xs px-2 pt-2">
-        <span className="font-bold tracking-widest uppercase text-[10px] bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">Reels</span>
-        <div className="flex gap-1.5 items-center">
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-white/90">Viral Mode</span>
+      {/* Background Video (Muted, Autoplay, Loop from public/video.mp4) */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 cursor-pointer"
+        onClick={redirectToInsta}
+      >
+        <source src="/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Cinematic Instagram Gradient Vignettes */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/95 pointer-events-none"></div>
+
+      {/* Top Bar (Instagram Style Headers) */}
+      <div className="relative z-10 flex justify-between items-center text-white px-3 pt-3">
+        <span className="font-black tracking-widest text-[10px] bg-white/15 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/20">REELS</span>
+        <div className="flex gap-2 items-center bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 shadow-sm cursor-pointer" onClick={redirectToInsta}>
+          <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+          <span className="text-[10px] font-black uppercase tracking-wider text-white">VIRAL MODE</span>
         </div>
       </div>
 
-      {/* Floating Side Action Bar */}
-      <div className="absolute right-4 bottom-20 z-10 flex flex-col items-center gap-6 text-white text-xs">
+      {/* Right Action Stack (All buttons redirect to your Instagram page) */}
+      <div className="absolute right-4 bottom-24 z-10 flex flex-col items-center gap-5 text-white">
+        {/* Like Button */}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-lg shadow-lg">❤️</div>
-          <span className="font-black font-mono text-[11px]">{likes.toLocaleString()}</span>
+          <button 
+            onClick={redirectToInsta}
+            className="w-11 h-11 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-lg shadow-lg hover:scale-110 transition-transform text-red-500"
+            title="Like on Instagram"
+          >
+            ❤️
+          </button>
+          <span className="font-black font-mono text-xs tracking-tight text-white drop-shadow-md">{likes.toLocaleString()}</span>
         </div>
+
+        {/* Comment Button */}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-lg shadow-lg">💬</div>
-          <span className="font-black font-mono text-[11px]">{comments.toLocaleString()}</span>
+          <div 
+            onClick={redirectToInsta}
+            className="w-11 h-11 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-lg shadow-lg hover:scale-110 transition-transform cursor-pointer"
+            title="Comment on Instagram"
+          >
+            💬
+          </div>
+          <span className="font-black font-mono text-xs tracking-tight text-white drop-shadow-md">{comments.toLocaleString()}</span>
         </div>
+
+        {/* Share Button */}
         <div className="flex flex-col items-center gap-1">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-lg shadow-lg">✈️</div>
-          <span className="font-black font-mono text-[11px]">{shares.toLocaleString()}</span>
+          <button 
+            onClick={redirectToInsta}
+            className="w-11 h-11 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-lg shadow-lg hover:scale-110 transition-transform cursor-pointer text-white active:scale-95"
+            title="Share on Instagram"
+          >
+            ✈️
+          </button>
+          <span className="font-black font-mono text-xs tracking-tight text-white drop-shadow-md">{shares.toLocaleString()}</span>
         </div>
       </div>
 
-      {/* Bottom Profile Info */}
-      <div className="relative z-10 text-white text-left p-2 max-w-[80%]">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-white text-purple-600 font-black flex items-center justify-center text-xs">W</div>
-          <span className="font-bold text-sm">@weoads.official</span>
-          <span className="text-[10px] border border-white/40 px-2 py-0.5 rounded-full font-semibold">Follow</span>
+      {/* Bottom Profile Info & Caption (Redirects to Instagram on click) */}
+      <div className="relative z-10 text-white text-left p-3 max-w-[84%] cursor-pointer" onClick={redirectToInsta}>
+        <div className="flex items-center gap-2.5 mb-2">
+          {/* Custom Logo from public/logo.png with Instagram gradient ring */}
+          <div className="w-9 h-9 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 shadow-md shrink-0">
+            <div className="w-full h-full rounded-full bg-black overflow-hidden flex items-center justify-center">
+              <img 
+                src="/insta.png" 
+                alt="Logo" 
+                className="w-full h-full object-cover"
+                onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} 
+              />
+            </div>
+          </div>
+
+          <span className="font-extrabold text-sm tracking-tight drop-shadow-md">weoads.official</span>
+          
+          <button 
+            onClick={(e) => { e.stopPropagation(); redirectToInsta(); }}
+            className="text-[11px] font-bold bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white px-3 py-0.5 rounded-full transition-all"
+          >
+            Follow
+          </button>
         </div>
-        <p className="text-xs text-white/90 line-clamp-2 leading-relaxed">Scaling brands with native short-form video & viral engagement engines 🚀 #SocialGrowth #CreativeAgency</p>
+
+        {/* Caption */}
+        <p className="text-xs text-gray-200 font-medium leading-relaxed drop-shadow-md line-clamp-2">
+          Scaling brands with native short-form video & viral engagement engines 🚀 #SocialGrowth #MarketingAgency
+        </p>
       </div>
     </div>
   );
 };
-
 export default function SocialMediaMarketingPage() {
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', country: '', message: '' });
   const [privacyAgreed, setPrivacyAgreed] = useState(false);

@@ -18,12 +18,12 @@ export default function Footer() {
           </div>
           
           <div className="relative z-10 flex flex-col sm:flex-row gap-4">
-            <button className="bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            <Link href="/advertisers" className="bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
               I'm an Advertiser &rarr;
-            </button>
-            <button className="bg-indigo-700/50 text-white border border-indigo-400 px-8 py-4 rounded-xl font-bold text-sm hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm">
+            </Link>
+            <Link href="/publishers" className="bg-indigo-700/50 text-white border border-indigo-400 px-8 py-4 rounded-xl font-bold text-sm hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm">
               I'm a Publisher &rarr;
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -103,9 +103,9 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-gray-900 mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-medium">
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">About Us</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Careers</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Blog</li>
+              <li><Link href="/about" className="hover:text-indigo-600 transition-colors">About Us</Link></li>
+              <li><Link href="/careers" className="hover:text-indigo-600 transition-colors">Careers</Link></li>
+              <li><Link href="/resources" className="hover:text-indigo-600 transition-colors">Blog</Link></li>
               <li className="hover:text-indigo-600 cursor-pointer transition-colors">
                 <Link href="/contact">Contact</Link>
               </li>
@@ -115,30 +115,30 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-gray-900 mb-6">Solutions</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-medium">
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">For Advertisers</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">For Publishers</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Ad Formats</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Affiliate Program</li>
+              <li><Link href="/advertisers" className="hover:text-indigo-600 transition-colors">For Advertisers</Link></li>
+              <li><Link href="/publishers" className="hover:text-indigo-600 transition-colors">For Publishers</Link></li>
+              <li><Link href="/ad-formats" className="hover:text-indigo-600 transition-colors">Ad Formats</Link></li>
+              <li><Link href="/affiliate-program" className="hover:text-indigo-600 transition-colors">Affiliate Program</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-gray-900 mb-6">Resources</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-medium">
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Help Center</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Case Studies</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">News & Updates</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">API Documentation</li>
+              <li><Link href="/help-center" className="hover:text-indigo-600 transition-colors">Help Center</Link></li>
+              <li><Link href="/case-studies" className="hover:text-indigo-600 transition-colors">Case Studies</Link></li>
+              <li><Link href="/news-updates" className="hover:text-indigo-600 transition-colors">News & Updates</Link></li>
+              <li><Link href="/api-documentation" className="hover:text-indigo-600 transition-colors">API Documentation</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-gray-900 mb-6">Legal</h4>
             <ul className="space-y-4 text-sm text-gray-500 font-medium">
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Privacy Policy</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Terms of Service</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Cookie Policy</li>
-              <li className="hover:text-indigo-600 cursor-pointer transition-colors">Compliance</li>
+              <li><Link href="/privacy-policy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms-of-service" className="hover:text-indigo-600 transition-colors">Terms of Service</Link></li>
+              <li><Link href="/cookie-policy" className="hover:text-indigo-600 transition-colors">Cookie Policy</Link></li>
+              <li><Link href="/compliance" className="hover:text-indigo-600 transition-colors">Compliance</Link></li>
             </ul>
           </div>
 

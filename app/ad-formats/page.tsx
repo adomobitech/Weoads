@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function AdFormatsPage(){return <PageCanvas spec={{label:"Ad formats",title:"Formats designed to earn attention.",lead:"Choose high-impact placements that fit the moment, respect the audience, and support your goals.",tone:"violet",mode:"signal",items:["Display","Native","Video","Connected TV","Mobile","Social","High impact"]}}/>}

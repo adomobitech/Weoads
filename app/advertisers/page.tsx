@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function AdvertisersPage(){return <PageCanvas spec={{label:"For advertisers",title:"Media that moves your business forward.",lead:"Find valuable audiences, protect your budget, and see the decisions behind every result.",tone:"violet",mode:"signal",items:["Audience intelligence","Premium inventory","Campaign control","Live reporting","Brand safety","Conversion design","Global reach"]}}/>}

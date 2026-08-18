@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CareersPage(){return <PageCanvas spec={{label:"Careers at WeoAds",title:"Make work that makes a difference.",lead:"Join a curious, kind team solving meaningful growth problems for ambitious brands around the world.",tone:"rose",mode:"culture",items:["Open roles","Life at WeoAds","Learn every day","Flexible work","Great people","Meaningful benefits","Meet the team"]}}/>}

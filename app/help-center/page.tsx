@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function HelpCenterPage(){return <PageCanvas spec={{label:"Help center",title:"Clear answers, whenever you need them.",lead:"Practical guidance for campaigns, partnerships, payments, and every important next step.",tone:"slate",mode:"library",items:["Getting started","Advertiser support","Publisher support","Billing help","Account access","Policies","Contact support"]}}/>}

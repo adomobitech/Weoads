@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function PrivacyPolicyPage(){return <PageCanvas spec={{label:"Privacy policy",title:"Your privacy deserves clarity.",lead:"A plain-language overview of how we collect, use, safeguard, and respect personal information.",tone:"slate",mode:"library",items:["Information we collect","How we use data","Your choices","Security","Cookies","Retention","Contact us"]}}/>}

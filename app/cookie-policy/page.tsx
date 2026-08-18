@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CookiePolicyPage(){return <PageCanvas spec={{label:"Cookie policy",title:"A clearer view of cookies.",lead:"Understand how cookie technology improves your experience and how you can manage your preferences.",tone:"amber",mode:"library",items:["What cookies are","Necessary cookies","Analytics","Advertising","Your controls","Updates","Contact us"]}}/>}

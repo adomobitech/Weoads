@@ -1,0 +1,2 @@
+import PageCanvas from "../../../components/PageCanvas";
+export default function BrandStrategyPage(){return <PageCanvas spec={{label:"Brand strategy",title:"A position your audience can believe in.",lead:"Find the sharper story, the stronger distinction, and the strategic direction that makes every channel work harder.",tone:"rose",mode:"culture",items:["Category research","Audience insight","Positioning","Messaging","Brand architecture","Creative direction","Activation"]}}/>}

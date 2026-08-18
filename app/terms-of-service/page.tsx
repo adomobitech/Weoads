@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function TermsPage(){return <PageCanvas spec={{label:"Terms of service",title:"Clear terms for a clear partnership.",lead:"The practical rules and commitments that help every WeoAds relationship work smoothly.",tone:"slate",mode:"terminal",items:["Agreement","Services","Accounts","Payments","Acceptable use","Liability","Contact"]}}/>}

@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CreatorProgramPage(){return <PageCanvas spec={{label:"Creator program",title:"Your influence, thoughtfully amplified.",lead:"Find campaigns that fit your audience and get the support to create your best work.",tone:"rose",mode:"editorial",items:["Brand matches","Creative freedom","Fair partnerships","Simple briefs","Fast payment","Audience respect","Creator support"]}}/>}

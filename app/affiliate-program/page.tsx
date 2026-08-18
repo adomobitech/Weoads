@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function AffiliateProgramPage(){return <PageCanvas spec={{label:"Affiliate program",title:"Partnerships that perform.",lead:"Create a measured, mutually valuable channel with the partners your customers already trust.",tone:"emerald",mode:"signal",items:["Partner discovery","Offer strategy","Tracking","Publisher growth","Commission design","Fraud protection","Reporting"]}}/>}

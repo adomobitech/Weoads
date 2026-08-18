@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CaseStudiesPage(){return <PageCanvas spec={{label:"Customer stories",title:"Proof lives in the results.",lead:"Explore the strategy, collaboration, and momentum behind meaningful growth outcomes.",tone:"cyan",mode:"editorial",items:["Growth stories","Ecommerce wins","Publisher results","Brand launches","Campaign lessons","Team insights","More results"]}}/>}

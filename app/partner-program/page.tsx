@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function PartnerProgramPage(){return <PageCanvas spec={{label:"Partner program",title:"Better outcomes are a team sport.",lead:"Create more value for your clients, build new revenue, and grow beside a performance-minded partner.",tone:"emerald",mode:"signal",items:["Agency partners","Technology partners","Referral rewards","Co-selling","Partner training","Shared insights","Better results"]}}/>}

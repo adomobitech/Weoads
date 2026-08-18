@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function ResourcesPage(){return <PageCanvas spec={{label:"The WeoAds library",title:"Ideas worth putting into practice.",lead:"Field notes, frameworks, and market intelligence for teams building the next phase of growth.",tone:"amber",mode:"library",items:["Growth playbooks","Channel guides","Market reports","Expert analysis","Campaign lessons","Platform updates","Useful templates"]}}/>}

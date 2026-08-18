@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function ServicesPage(){return <PageCanvas spec={{label:"WeoAds services",title:"Every growth challenge deserves a sharper answer.",lead:"Explore focused digital marketing services designed to move from an early opportunity to repeatable momentum.",tone:"violet",mode:"signal",items:["Search growth","Paid media","Social strategy","Content systems","Creator marketing","Lifecycle marketing","Digital transformation"]}}/>}

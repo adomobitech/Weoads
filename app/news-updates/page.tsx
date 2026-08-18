@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function NewsUpdatesPage(){return <PageCanvas spec={{label:"News & updates",title:"What’s moving at WeoAds.",lead:"The latest product ideas, company news, and points of view from our team.",tone:"amber",mode:"editorial",items:["Company news","Product notes","Industry trends","Event highlights","Team stories","Press releases","Newsletter"]}}/>}

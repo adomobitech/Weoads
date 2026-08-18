@@ -1,0 +1,2 @@
+import PageCanvas from "../../../components/PageCanvas";
+export default function LeadGenerationPage(){return <PageCanvas spec={{label:"Lead generation",title:"Turn interest into qualified opportunity.",lead:"Build a consistent, measurable demand engine around the people most likely to become your next customers.",tone:"emerald",mode:"signal",items:["Demand strategy","Landing pages","Paid acquisition","Lead scoring","Nurture flows","Sales alignment","Pipeline reporting"]}}/>}

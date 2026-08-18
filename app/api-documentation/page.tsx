@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function ApiDocumentationPage(){return <PageCanvas spec={{label:"Developer platform",title:"Build smarter performance workflows.",lead:"Connect the data and tools your team already uses with flexible, documented integrations.",tone:"slate",mode:"terminal",items:["Quickstart","Authentication","Campaign API","Reporting API","Webhooks","SDKs","Status"]}}/>}

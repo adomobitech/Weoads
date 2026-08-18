@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function AboutPage(){return <PageCanvas spec={{label:"About WeoAds",title:"Ambitious growth needs a better partner.",lead:"We unite creative thinking, responsible technology, and performance discipline to help businesses move forward.",tone:"emerald",mode:"culture",items:["Our mission","Our people","How we think","Where we work","Client partnership","Responsible growth","The next chapter"]}}/>}

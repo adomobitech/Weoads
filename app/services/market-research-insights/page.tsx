@@ -1,0 +1,2 @@
+import PageCanvas from "../../../components/PageCanvas";
+export default function MarketResearchPage(){return <PageCanvas spec={{label:"Market research & insights",title:"Start with what your market is telling you.",lead:"Transform audience, category, and competitive signals into confident decisions your team can act on.",tone:"amber",mode:"library",items:["Market mapping","Audience research","Competitor analysis","Trend tracking","Voice of customer","Opportunity sizing","Insight workshops"]}}/>}

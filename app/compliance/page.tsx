@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CompliancePage(){return <PageCanvas spec={{label:"Compliance",title:"Growth with responsibility built in.",lead:"Our approach to trust, brand safety, privacy, and responsible media practices.",tone:"emerald",mode:"signal",items:["Brand safety","Data practices","Quality standards","Fraud prevention","Partner review","Governance","Reporting"]}}/>}

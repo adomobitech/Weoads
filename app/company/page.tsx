@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function CompanyPage(){return <PageCanvas spec={{label:"The company",title:"A media company built for what comes next.",lead:"From strategy through scale, WeoAds creates the conditions for smarter growth across every digital touchpoint.",tone:"slate",mode:"signal",items:["Our story","Leadership","Global footprint","Technology","Values","Impact","Press room"]}}/>}

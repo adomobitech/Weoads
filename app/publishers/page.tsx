@@ -1,0 +1,2 @@
+import PageCanvas from "../../components/PageCanvas";
+export default function PublishersPage(){return <PageCanvas spec={{label:"For publishers",title:"Make every visit more valuable.",lead:"Monetize quality audiences with trusted demand, clear reporting, and support that respects your readers.",tone:"cyan",mode:"editorial",items:["Trusted demand","Higher yield","Reader-first formats","Transparent revenue","Smart optimization","Reliable payments","Dedicated support"]}}/>}
